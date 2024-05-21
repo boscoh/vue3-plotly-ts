@@ -1,0 +1,31 @@
+{
+  "name": "vue3-plotly-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/VuePlotly.vue.d.ts",
+  "main": "./dist/vue3-plotly-ts.cjs",
+  "module": "./dist/vue3-plotly-ts.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite-plugin-dts": "^3.9.1",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.4",
+    "@types/node": "^20.12.12",
+    "@types/plotly.js-dist-min": "^2.3.4",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "plotly.js-dist-min": "^2.32.0",
+    "path": "^0.12.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
