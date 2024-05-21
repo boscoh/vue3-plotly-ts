@@ -1,6 +1,6 @@
 # vue-plotly-ts
 
-Plotly.js component for Vue3 in Typescript:
+Plotly.js component for Vue3 in (optional) Typescript:
 
 - type definitions in Typescript
 - written in composition API 

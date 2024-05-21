@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import VuePlotly from 'vue3-plotly-ts'
 import Plotly from 'plotly.js-dist-min'
 import _ from 'lodash'
 
-const plotRef = ref<typeof VuePlotly>()
-
-const initData: Plotly.Data[] = [
-    {
-        x: [1, 2, 3, 4],
-        y: [10, 15, 13, 17],
-        type: 'scatter',
-    },
-]
-const data = ref<Plotly.Data[]>(initData)
+const plot = ref<typeof VuePlotly>()
+const data = ref<Plotly.Data[]>(randomizeData())
 const layout = ref<Partial<Plotly.Layout>>({
     margin: {
         l: 20,
@@ -26,45 +18,43 @@ const layout = ref<Partial<Plotly.Layout>>({
     title: '',
 })
 
+const dataString = ref(convertDataToString(data.value as Plotly.PlotData[]))
+const clickString = ref('')
 const codeString = `import VuePlotly from 'vue3-plotly-ts'
 
 <VuePlotly
   :data="data"
   :layout="layout"
-  :config="config"
-  ref="plotRef"
+  ref="plot"
   @plotly_click="onPlotlyClick"
 />`
-
-const dataJsonString = ref(convertDataToString(initData as Plotly.PlotData[]))
-
-const plotlyClickString = ref('')
-
-function onPlotlyClick(data: Plotly.PlotMouseEvent) {
-    const point = data.points[0]
-    plotlyClickString.value = `plotly_click -> arg.points[0].y = ${_.cloneDeep(
-        point.y
-    )}`
-}
+const idString = computed(() => {
+    return ` plot.value.plotlyId = "${plot.value?.plotlyId}"`
+})
 
 function convertDataToString(data: Plotly.PlotData[]) {
-    return 'data[0].y = ' + JSON.stringify(data[0].y)
+    return 'data[0].y = ' + JSON.stringify(data[0].y, null, 2)
 }
 
 function randomizeData(): Plotly.PlotData[] {
-    const currData = _.cloneDeep(initData) as Plotly.PlotData[]
-    const y = currData[0].y
-    for (let i = 0; i < y.length; i += 1) {
-        y[i] = Math.round(Math.random() * 40)
+    function buildData() {
+        const n = 20
+        const x = _.range(1, n + 1)
+        const y = _.map(x, () => Math.round(Math.random() * 40))
+        return { x, y, type: 'scatter' } as Plotly.PlotData
     }
-    dataJsonString.value = convertDataToString(currData)
-    return currData
+
+    return [buildData(), buildData(), buildData()]
 }
 
-function onRandomize() {
+async function onRandomize() {
     console.log('onRandomize')
     const currData = randomizeData()
+    dataString.value = convertDataToString(currData)
     data.value = currData
+
+    await nextTick()
+
     const newMaxY = Math.max.apply(null, currData[0].y as number[])
     const currLayout = _.cloneDeep(layout.value)
     currLayout['yaxis'] = { range: [0, newMaxY * 1.1] }
@@ -79,64 +69,75 @@ async function onAnimate() {
         },
     }
     const currData = randomizeData()
+    dataString.value = convertDataToString(currData)
     console.log('onAnimate randomData', currData)
 
     // Note: if layout is done before data, there is some SVG bug
     // that only occurs in the built SPA
     console.log('onAnimate data')
     const dataaFrame: Partial<Plotly.Frame> = { data: currData }
-    await Plotly.animate(plotRef.value?.plotlyId, dataaFrame, animateOpts)
+    await Plotly.animate(plot.value?.plotlyId, dataaFrame, animateOpts)
     data.value = currData
+
+    await nextTick()
 
     let newMaxY = Math.max.apply(null, currData[0].y as number[])
     const layoutFrame: Partial<Plotly.Frame> = {
         layout: { yaxis: { range: [0, newMaxY * 1.1] } },
     }
     console.log('onAnimate layout')
-    await Plotly.animate(plotRef.value?.plotlyId, layoutFrame, animateOpts)
+    await Plotly.animate(plot.value?.plotlyId, layoutFrame, animateOpts)
 
     // Have to reset plotly handlers after a layout animate.
     // Debug at your own leisure for your cases
-    plotRef.value?.setPlotlyEventHandlers()
+    plot.value?.setPlotlyEventHandlers()
 }
+
+function onPlotlyClick(data: Plotly.PlotMouseEvent) {
+    const point = data.points[0]
+    clickString.value = `plotly_click -> arg.points[0].y = ${_.cloneDeep(
+        point.y
+    )}`
+}
+
 </script>
 
 <template>
-    <h1>demo: vue3-plotly-ts</h1>
+    <div class="narrow">
+        <h1>demo: vue3-plotly-ts</h1>
 
-    github:
-    <a href="https://github.com/boscoh/vue3-plotly-ts/"
-        >boscoh/vue3-plotly-ts</a
-    >
+        <div>
+            github:
+            <a href="https://github.com/boscoh/vue3-plotly-ts/"
+                >boscoh/vue3-plotly-ts</a
+            >
+        </div>
 
-    <pre
-        style="padding: 20px; border: 1px solid #ddd; text-align: left"
-    ><code>{{ codeString }}
-    </code></pre>
+        <pre class="card"><code>{{ codeString }}</code></pre>
 
-    <pre style="text-align: left"><code>
-[composition] plotRef.value.plotlyId = "{{ plotRef?.plotlyId }}"
-[options] this.$ref.plotRef.plotlyId = "{{ plotRef?.plotlyId }}"
-    </code></pre>
+        <pre><code>{{ idString }}</code></pre>
+    </div>
 
-    <div style="width: 100%">
+    <div class="wide">
         <VuePlotly
-            ref="plotRef"
+            ref="plot"
             @plotly_click="onPlotlyClick"
             :data="data"
             :layout="layout"
         />
     </div>
 
-    <div style="margin-top: 10px">
-        <button @click="onRandomize">randomize</button>
-        &nbsp;<button @click="onAnimate">animate</button>
-        &nbsp; [click on points]
-    </div>
+    <div class="narrow">
+        <div style="margin: 10px 0">
+            <button @click="onRandomize">randomize</button>
+            &nbsp;<button @click="onAnimate">animate</button>
+            &nbsp; [click on points]
+        </div>
 
-    <pre style="text-align: left"><code>{{ dataJsonString }}
-{{ plotlyClickString }}
-    </code></pre>
+        <code>{{ dataString }}</code>
+
+        <code style="margin-top: 10px">{{ clickString }}</code>
+    </div>
 </template>
 
 <style scoped></style>
