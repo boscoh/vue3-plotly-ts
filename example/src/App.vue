@@ -108,7 +108,9 @@ async function onAnimate() {
 </script>
 
 <template>
-    <h1>vue3-plotly-ts demo</h1>
+    <h1>demo: vue3-plotly-ts</h1>
+
+    github: <a href="https://github.com/boscoh/vue3-plotly-ts/">boscoh/vue3-plotly-ts</a>
 
     <pre
         style="padding: 20px; border: 1px solid #ddd; text-align: left"
