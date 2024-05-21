@@ -11,7 +11,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'lib/main.ts'),
       name: 'VuePlotly',
       // the proper extensions will be added
-      fileName: 'vue3-plotly-ts-ts'
+      fileName: 'vue3-plotly-ts'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
