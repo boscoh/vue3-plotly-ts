@@ -6,14 +6,15 @@ Shows how to import  types from Plotly.js.
 
 ### Installation
 
-In `vue-plotly`:
-- `npm link vue3-plotly`
+In `vue-plotly-ts`:
+- `npm link`
 
-Then in `vue-plotly/example`:
+Then in `vue-plotly-ts/example`:
 - `npm install`
-- `npm link vue3-plotly`
+- `npm link vue3-plotly-ts`
 - `npm run build`
 
 Copy to doc:
-- `cp -r dist ../../doc`
+- `rm -r ../docs`
+- `cp -r dist ../docs`
 
