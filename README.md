@@ -1,13 +1,12 @@
 # vue-plotly-ts
 
 Plotly.js component for Vue3 in Typescript:
+
 - type definitions in Typescript
-- written in composition API
+- written in composition API 
 - distinguish between `newPlot` and `react`
 - attach to ResizeObserver
-- propagate `plotly_*` event handlers 
-- examples to load data in Typescript
-- example for Plotly functions such as `animate`
+- propagate `plotly_*` event handlers
 
 ## Live demo
 
@@ -22,8 +21,9 @@ npm i vue3-plotly-ts
 ## Usage with composition API in Typescript
 
 ```Vue
+
 <template>
-  <VuePlot
+  <VuePlotly
     :data="data"
     :layout="layout"
     ref="plotRef"
@@ -33,7 +33,7 @@ npm i vue3-plotly-ts
 
 <script setup lang="ts">
   import {ref} from "vue"
-  import VuePlot from "vue3-plotly-ts"
+  import VuePlotly from "vue3-plotly-ts"
   import Plotly from "plotly.js-dist-min"
 
   const data: Plotly.Data[] = [
@@ -43,13 +43,13 @@ npm i vue3-plotly-ts
       type: 'scatter',
     }
   ]
-  
+
   const layout = ref<Partial<Plotly.Layout>>({
     height: 230,
     title: 'Example plot',
   })
-  
-  const plotRef = ref<typeof VuePlot>()
+
+  const plotRef = ref<typeof VuePlotly>()
 
   function onPlotlyClick(data: Plotly.PlotMouseEvent) {
     console.log(data.points)
@@ -57,57 +57,63 @@ npm i vue3-plotly-ts
 </script>
 ```
 
+## How to use VuePlotly in Typescript
+
+<https://github.com/boscoh/vue3-plotly-ts/blob/main/demo/src/App.vue/>
+
 ## Component props
 
-* data `Plotly.Data[]` - data to be displayed
-* layout `Partial<Plotly.Layout>` - graphic layout
-* config `Partial<Plotly.Config>` - configuration parameters
+* data `Plotly.Data[]` - array of objects, see [documentation](https://plotly.com/javascript/reference)
+* layout `Partial<Plotly.Layout>` - layout on the page,
+  see [documentation](https://plotly.com/javascript/reference/layout)
+* config `Partial<Plotly.Config>` - configuration of
+  interactivity [documentation](https://plotly.com/javascript/configuration-options)
 
-## Event handlers in props
+## Event handlers 
 
-Plotly provides a number of event handlers, and these 
-are propagated to VuePlotly via the handlers `@plotly_event="yourHandler"`. For 
+Plotly provides a number of event handlers such as capturing a mouse
+click on data point These
+are propagated to VuePlotly via the handlers `@plotly_event="yourHandler"`. For
 function signatures see [the Plotly event handler page](https://plotly.com/javascript/plotlyjs-events/):
 
-* `plotly_click` - Function
-* `plotly_hover` - Function
-* `plotly_selecting` - Function
-* `plotly_restyle` - Function
-* `plotly_relayout` - Function
-* `plotly_clickannotation` - Function
-* `plotly_animatingframe` - Function
-* `plotly_legendclick` - Function
-* `plotly_sliderchange` - Function
-* `plotly_sliderend` - Function
-* `plotly_sliderstart` - Function
-* `plotly_sunburstclick` - Function
-* `plotly_event` - Function
-* `plotly_beforeplot` - Function
+* `plotly_click` 
+* `plotly_hover` 
+* `plotly_selecting` 
+* `plotly_restyle` 
+* `plotly_relayout` 
+* `plotly_clickannotation` 
+* `plotly_animatingframe` 
+* `plotly_legendclick` 
+* `plotly_sliderchange` 
+* `plotly_sliderend` 
+* `plotly_sliderstart` 
+* `plotly_sunburstclick` 
+* `plotly_event` 
+* `plotly_beforeplot` 
 
-##  Plotly functions 
+## Plotly functions
 
-There are several high level Plotly functions that allow dynamic 
+There are several high level Plotly functions that allow dynamic
 manipulations of plots over and above data changes, such as animation
-and saving images. To access these functions, you will need the `plotlyId`
-that gives the `id` of the `div` element containg the Plotly graph.
+and saving images. To access these functions, you need 
+the `id` of the `div` element of the Plotly graph. This
+is given in the `plotlyId` property of the `VuePlotly` instance.
 
-Here is a schematic. Full details can be found in the [example](https://github.com/boscoh/vue3-plotly-ts/tree/main/example).
+Here is a schematic. Full details can be found in
+the [demo](https://github.com/boscoh/vue3-plotly-ts/blob/main/demo/src/App.vue).
 
 ```Vue
 <template>
-  <VuePlot
+  <VuePlotly
     :data="data"
     ref="plotRef"
   />
 </template>
 
-<script setup lang="ts">
+<script setup>
+  import VuePlotly from "vue3-plotly-ts"
   import {ref} from "vue"
-  import VuePlot from "vue3-plotly-ts"
-  import Plotly from "plotly.js-dist-min"
-
-  const plotRef = ref<typeof VuePlot>()
-  const frame: Plotly.Frame = {data: ...}
-  Plotly.animate(plotref.value?.plotId, frame, {})
+  const plotRef = ref()
+  Plotly.animate(plotref.value?.plotId, {data, ...}, {transition...})
 </script>
 ```

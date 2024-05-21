@@ -30,7 +30,7 @@ const emit = defineEmits([
 
 const randomString = Math.random().toString(36).slice(2, 7)
 const plotlyId = ref<string>(`plotly-${randomString}`)
-const divRef = ref<HTMLDivElement>()
+const divRef = ref<Plotly.PlotlyHTMLElement>()
 
 let isCreated = false
 
@@ -53,6 +53,43 @@ function resize() {
 
 const resizeObserver = new ResizeObserver(debounce(resize, 50))
 
+function setPlotlyEventHandlers() {
+    const div = divRef.value as Plotly.PlotlyHTMLElement
+    div.on('plotly_click', (...args: any[]) => emit('plotly_click', ...args))
+    div.on('plotly_hover', (...args: any[]) => emit('plotly_hover', ...args))
+    div.on('plotly_unhover', (...args: any[]) =>
+        emit('plotly_unhover', ...args)
+    )
+    div.on('plotly_selecting', (...args: any[]) =>
+        emit('plotly_selecting', ...args)
+    )
+    div.on('plotly_selected', (...args: any[]) =>
+        emit('plotly_selected', ...args)
+    )
+    div.on('plotly_restyle', (...args: any[]) =>
+        emit('plotly_restyle', ...args)
+    )
+    div.on('plotly_relayout', (...args: any[]) =>
+        emit('plotly_relayout', ...args)
+    )
+    div.on('plotly_autosize', (...args: any[]) =>
+        emit('plotly_autosize', ...args)
+    )
+    div.on('plotly_deselect', (...args: any[]) =>
+        emit('plotly_deselect', ...args)
+    )
+    div.on('plotly_doubleclick', (...args: any[]) =>
+        emit('plotly_doubleclick', ...args)
+    )
+    div.on('plotly_redraw', (...args: any[]) => emit('plotly_redraw', ...args))
+    div.on('plotly_animated', (...args: any[]) =>
+        emit('plotly_animated', ...args)
+    )
+    div.on('plotly_afterplot', (...args: any[]) =>
+        emit('plotly_afterplot', ...args)
+    )
+}
+
 watchEffect(async () => {
     const data = props.data ? props.data : []
     if (isCreated) {
@@ -65,49 +102,8 @@ watchEffect(async () => {
             props.layout,
             props.config
         )
-
         resizeObserver.observe(div)
-
-        div.on('plotly_click', (...args: any[]) =>
-            emit('plotly_click', ...args)
-        )
-        div.on('plotly_hover', (...args: any[]) =>
-            emit('plotly_hover', ...args)
-        )
-        div.on('plotly_unhover', (...args: any[]) =>
-            emit('plotly_unhover', ...args)
-        )
-        div.on('plotly_selecting', (...args: any[]) =>
-            emit('plotly_selecting', ...args)
-        )
-        div.on('plotly_selected', (...args: any[]) =>
-            emit('plotly_selected', ...args)
-        )
-        div.on('plotly_restyle', (...args: any[]) =>
-            emit('plotly_restyle', ...args)
-        )
-        div.on('plotly_relayout', (...args: any[]) =>
-            emit('plotly_relayout', ...args)
-        )
-        div.on('plotly_autosize', (...args: any[]) =>
-            emit('plotly_autosize', ...args)
-        )
-        div.on('plotly_deselect', (...args: any[]) =>
-            emit('plotly_deselect', ...args)
-        )
-        div.on('plotly_doubleclick', (...args: any[]) =>
-            emit('plotly_doubleclick', ...args)
-        )
-        div.on('plotly_redraw', (...args: any[]) =>
-            emit('plotly_redraw', ...args)
-        )
-        div.on('plotly_animated', (...args: any[]) =>
-            emit('plotly_animated', ...args)
-        )
-        div.on('plotly_afterplot', (...args: any[]) =>
-            emit('plotly_afterplot', ...args)
-        )
-
+        setPlotlyEventHandlers()
         isCreated = true
     }
 })
@@ -117,5 +113,5 @@ onBeforeUnmount(() => {
     Plotly.purge(divRef.value as Plotly.Root)
 })
 
-defineExpose({ plotlyId })
+defineExpose({ plotlyId, setPlotlyEventHandlers })
 </script>
