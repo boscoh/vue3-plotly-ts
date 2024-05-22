@@ -75,34 +75,34 @@ click on a data point. These are propagated to VuePlotly as
 event handlers which expect a callback. These are the expected
 callback function arguments:
 
-* plotly_click -  `(e: Plotly.PlotMouseEvent)`
-* plotly_hover -  `(e: Plotly.PlotHoverEvent)`
-* plotly_unhover -  `(e: Plotly.PlotMouseEvent)`
-* plotly_selecting -  `(e: Plotly.PlotSelectionEvent)`
-* plotly_selected -  `(e: Plotly.PlotSelectionEvent)`
-* plotly_restyle -  `(e: Plotly.PlotRestyleEvent)`
-* plotly_relayout -  `(e: Plotly.PlotRelayoutEvent)`
-* plotly_clickannotation -  `(e: Plotly.ClickAnnotationEvent)`
-* plotly_legendclick -  `(e: Plotly.LegendClickEvent)`
-* plotly_legenddoubleclick -  `(e: Plotly.LegendClickEvent)`
-* plotly_sliderchange -  `(e: Plotly.SliderChangeEvent)`
-* plotly_sliderend -  `(e: Plotly.SliderEndEvent)`
-* plotly_sliderstart -  `(e: Plotly.SliderStartEvent)`
-* plotly_sunburstclick -  `(e: Plotly.SunburstClickEvent)`
-* plotly_event -  `(e: any)`
-* plotly_beforeplot -  `(e: Plotly.BeforePlotEvent)`
-* plotly_afterexport -  `()`
-* plotly_afterplot -  `()`
-* plotly_animated -  `()`
-* plotly_animationinterrupted -  `()`
-* plotly_autosize -  `()`
-* plotly_beforeexport -  `()`
-* plotly_deselect -  `()`
-* plotly_doubleclick -  `()`
-* plotly_framework -  `()`
-* plotly_redraw -  `()`
-* plotly_transitioning -  `()`
-* plotly_transitioninterrupted -  `()`
+* plotly_click `e: Plotly.PlotMouseEvent)`
+* plotly_hover `e: Plotly.PlotHoverEvent)`
+* plotly_unhover `e: Plotly.PlotMouseEvent)`
+* plotly_selecting `e: Plotly.PlotSelectionEvent)`
+* plotly_selected `e: Plotly.PlotSelectionEvent)`
+* plotly_restyle `e: Plotly.PlotRestyleEvent)`
+* plotly_relayout `e: Plotly.PlotRelayoutEvent)`
+* plotly_clickannotation `e: Plotly.ClickAnnotationEvent)`
+* plotly_legendclick `e: Plotly.LegendClickEvent)`
+* plotly_legenddoubleclick `e: Plotly.LegendClickEvent)`
+* plotly_sliderchange `e: Plotly.SliderChangeEvent)`
+* plotly_sliderend `e: Plotly.SliderEndEvent)`
+* plotly_sliderstart `e: Plotly.SliderStartEvent)`
+* plotly_sunburstclick `e: Plotly.SunburstClickEvent)`
+* plotly_event `e: any)`
+* plotly_beforeplot `e: Plotly.BeforePlotEvent)`
+* plotly_afterexport `)`
+* plotly_afterplot `)`
+* plotly_animated `)`
+* plotly_animationinterrupted `)`
+* plotly_autosize `)`
+* plotly_beforeexport `)`
+* plotly_deselect `)`
+* plotly_doubleclick `)`
+* plotly_framework `)`
+* plotly_redraw `)`
+* plotly_transitioning `)`
+* plotly_transitioninterrupted `)`
   
 See the [Plotly event handler page](https://plotly.com/javascript/plotlyjs-events/) for further details.
 
