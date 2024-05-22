@@ -73,36 +73,36 @@ See demo source for a fully interactive example with Plotly functions:
 Plotly provides a number of event handlers such as capturing a mouse
 click on a data point. These are propagated to VuePlotly as 
 event handlers which expect a callback. These are the expected
-callback function arguments:
+callback arguments:
 
-* plotly_click `e: Plotly.PlotMouseEvent)`
-* plotly_hover `e: Plotly.PlotHoverEvent)`
-* plotly_unhover `e: Plotly.PlotMouseEvent)`
-* plotly_selecting `e: Plotly.PlotSelectionEvent)`
-* plotly_selected `e: Plotly.PlotSelectionEvent)`
-* plotly_restyle `e: Plotly.PlotRestyleEvent)`
-* plotly_relayout `e: Plotly.PlotRelayoutEvent)`
-* plotly_clickannotation `e: Plotly.ClickAnnotationEvent)`
-* plotly_legendclick `e: Plotly.LegendClickEvent)`
-* plotly_legenddoubleclick `e: Plotly.LegendClickEvent)`
-* plotly_sliderchange `e: Plotly.SliderChangeEvent)`
-* plotly_sliderend `e: Plotly.SliderEndEvent)`
-* plotly_sliderstart `e: Plotly.SliderStartEvent)`
-* plotly_sunburstclick `e: Plotly.SunburstClickEvent)`
-* plotly_event `e: any)`
-* plotly_beforeplot `e: Plotly.BeforePlotEvent)`
-* plotly_afterexport `)`
-* plotly_afterplot `)`
-* plotly_animated `)`
-* plotly_animationinterrupted `)`
-* plotly_autosize `)`
-* plotly_beforeexport `)`
-* plotly_deselect `)`
-* plotly_doubleclick `)`
-* plotly_framework `)`
-* plotly_redraw `)`
-* plotly_transitioning `)`
-* plotly_transitioninterrupted `)`
+* plotly_click `callback(: Plotly.PlotMouseEvent)`
+* plotly_hover `callback(: Plotly.PlotHoverEvent)`
+* plotly_unhover `callback(: Plotly.PlotMouseEvent)`
+* plotly_selecting `callback(: Plotly.PlotSelectionEvent)`
+* plotly_selected `callback(: Plotly.PlotSelectionEvent)`
+* plotly_restyle `callback(: Plotly.PlotRestyleEvent)`
+* plotly_relayout `callback(: Plotly.PlotRelayoutEvent)`
+* plotly_clickannotation `callback(: Plotly.ClickAnnotationEvent)`
+* plotly_legendclick `callback(: Plotly.LegendClickEvent)`
+* plotly_legenddoubleclick `callback(: Plotly.LegendClickEvent)`
+* plotly_sliderchange `callback(: Plotly.SliderChangeEvent)`
+* plotly_sliderend `callback(: Plotly.SliderEndEvent)`
+* plotly_sliderstart `callback(: Plotly.SliderStartEvent)`
+* plotly_sunburstclick `callback(: Plotly.SunburstClickEvent)`
+* plotly_event `callback(: any)`
+* plotly_beforeplot `callback(: Plotly.BeforePlotEvent)`
+* plotly_afterexport `callback()`
+* plotly_afterplot `callback()`
+* plotly_animated `callback()`
+* plotly_animationinterrupted `callback()`
+* plotly_autosize `callback()`
+* plotly_beforeexport `callback()`
+* plotly_deselect `callback()`
+* plotly_doubleclick `callback()`
+* plotly_framework `callback()`
+* plotly_redraw `callback()`
+* plotly_transitioning `callback()`
+* plotly_transitioninterrupted `callback()`
   
 See the [Plotly event handler page](https://plotly.com/javascript/plotlyjs-events/) for further details.
 
