@@ -89,7 +89,7 @@ callback arguments:
 * plotly_sliderend `callback(event: Plotly.SliderEndEvent)`
 * plotly_sliderstart `callback(event: Plotly.SliderStartEvent)`
 * plotly_sunburstclick `callback(event: Plotly.SunburstClickEvent)`
-* plotly_event `callback(: any)`
+* plotly_event `callback(event: any)`
 * plotly_beforeplot `callback(event: Plotly.BeforePlotEvent)`
 * plotly_afterexport `callback()`
 * plotly_afterplot `callback()`
