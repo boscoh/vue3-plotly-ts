@@ -19,15 +19,15 @@ const layout = ref<Partial<Plotly.Layout>>({
 })
 
 const dataString = ref(convertDataToString(data.value as Plotly.PlotData[]))
-const clickString = ref('')
-const codeString = `import VuePlotly from 'vue3-plotly-ts'
+const clickString = ref('onPlotlyClick(event) ->')
 
-<VuePlotly
+const codeString =
+`<VuePlotly
   :data="data"
-  :layout="layout"
   ref="plot"
   @plotly_click="onPlotlyClick"
 />`
+
 const idString = computed(() => {
     return ` plot.value.plotlyId = "${plot.value?.plotlyId}"`
 })
@@ -95,7 +95,7 @@ async function onAnimate() {
 
 function onPlotlyClick(data: Plotly.PlotMouseEvent) {
     const point = data.points[0]
-    clickString.value = `plotly_click -> arg.points[0].y = ${_.cloneDeep(
+    clickString.value = `onPlotlyClick(event) -> event.points[0].y = ${_.cloneDeep(
         point.y
     )}`
 }
@@ -113,9 +113,10 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
             >
         </div>
 
-        <pre class="card"><code>{{ codeString }}</code></pre>
+        <code class="card">import VuePlotly from 'vue3-plotly-ts</code>
 
-        <pre><code>{{ idString }}</code></pre>
+        <code><pre class="card">{{ codeString }}</pre></code>
+
     </div>
 
     <div class="wide">
@@ -134,10 +135,34 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
             &nbsp; [click on points]
         </div>
 
-        <code>{{ dataString }}</code>
 
-        <code style="margin-top: 10px">{{ clickString }}</code>
+        <code class="card">{{ dataString }}</code>
+
+        <code class="card">{{ idString }}</code>
+
+        <code class="card">{{ clickString }}</code>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+code {
+    margin-top: 10px;
+}
+pre {
+    margin: 0;
+}
+.card {
+    padding: 0.3rem 1rem;
+    border: 1px solid #ddd;
+}
+.narrow {
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wide {
+    width: 80%;
+}
+</style>
