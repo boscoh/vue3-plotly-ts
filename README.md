@@ -18,7 +18,7 @@ Plotly.js component for Vue3 in (optional) Typescript:
 npm i vue3-plotly-ts
 ```
 
-## Usage with composition API in Typescript
+## Basic usage in Typescript
 
 ```Vue
 
@@ -57,8 +57,7 @@ npm i vue3-plotly-ts
 </script>
 ```
 
-## How to use VuePlotly in Typescript
-
+See demo source for a fully interactive example with Plotly functions: 
 <https://github.com/boscoh/vue3-plotly-ts/blob/main/demo/src/App.vue/>
 
 ## Component props
@@ -72,48 +71,62 @@ npm i vue3-plotly-ts
 ## Event handlers 
 
 Plotly provides a number of event handlers such as capturing a mouse
-click on data point These
-are propagated to VuePlotly via the handlers `@plotly_event="yourHandler"`. For
-function signatures see [the Plotly event handler page](https://plotly.com/javascript/plotlyjs-events/):
+click on a data point. These are propagated to VuePlotly as 
+event handlers which expect a callback. These are the expected
+callback function arguments:
 
-* `plotly_click` 
-* `plotly_hover` 
-* `plotly_selecting` 
-* `plotly_restyle` 
-* `plotly_relayout` 
-* `plotly_clickannotation` 
-* `plotly_animatingframe` 
-* `plotly_legendclick` 
-* `plotly_sliderchange` 
-* `plotly_sliderend` 
-* `plotly_sliderstart` 
-* `plotly_sunburstclick` 
-* `plotly_event` 
-* `plotly_beforeplot` 
+* plotly_click -  `(e: Plotly.PlotMouseEvent)`
+* plotly_hover -  `(e: Plotly.PlotHoverEvent)`
+* plotly_unhover -  `(e: Plotly.PlotMouseEvent)`
+* plotly_selecting -  `(e: Plotly.PlotSelectionEvent)`
+* plotly_selected -  `(e: Plotly.PlotSelectionEvent)`
+* plotly_restyle -  `(e: Plotly.PlotRestyleEvent)`
+* plotly_relayout -  `(e: Plotly.PlotRelayoutEvent)`
+* plotly_clickannotation -  `(e: Plotly.ClickAnnotationEvent)`
+* plotly_legendclick -  `(e: Plotly.LegendClickEvent)`
+* plotly_legenddoubleclick -  `(e: Plotly.LegendClickEvent)`
+* plotly_sliderchange -  `(e: Plotly.SliderChangeEvent)`
+* plotly_sliderend -  `(e: Plotly.SliderEndEvent)`
+* plotly_sliderstart -  `(e: Plotly.SliderStartEvent)`
+* plotly_sunburstclick -  `(e: Plotly.SunburstClickEvent)`
+* plotly_event -  `(e: any)`
+* plotly_beforeplot -  `(e: Plotly.BeforePlotEvent)`
+* plotly_afterexport -  `()`
+* plotly_afterplot -  `()`
+* plotly_animated -  `()`
+* plotly_animationinterrupted -  `()`
+* plotly_autosize -  `()`
+* plotly_beforeexport -  `()`
+* plotly_deselect -  `()`
+* plotly_doubleclick -  `()`
+* plotly_framework -  `()`
+* plotly_redraw -  `()`
+* plotly_transitioning -  `()`
+* plotly_transitioninterrupted -  `()`
+  
+See the [Plotly event handler page](https://plotly.com/javascript/plotlyjs-events/) for further details.
 
 ## Plotly functions
 
-There are several high level Plotly functions that allow dynamic
-manipulations of plots over and above data changes, such as animation
+There are several high-level [Plotly functions](https://plotly.com/javascript/plotlyjs-function-reference/) that allow dynamic
+manipulations of plots such as animation
 and saving images. To access these functions, you need 
 the `id` of the `div` element of the Plotly graph. This
-is given in the `plotlyId` property of the `VuePlotly` instance.
-
-Here is a schematic. Full details can be found in
-the [demo](https://github.com/boscoh/vue3-plotly-ts/blob/main/demo/src/App.vue).
+is given in the `plotlyId` property of the `VuePlotly` instance. Here is a schematic: 
 
 ```Vue
 <template>
-  <VuePlotly
-    :data="data"
-    ref="plotRef"
-  />
+  <VuePlotly ref="plotRef"/>
 </template>
 
 <script setup>
   import VuePlotly from "vue3-plotly-ts"
+  import Plotly from "plotly.js-dist-min"
   import {ref} from "vue"
+
   const plotRef = ref()
   Plotly.animate(plotref.value?.plotId, {data, ...}, {transition...})
 </script>
 ```
+
+Full details can be found in the [demo](https://github.com/boscoh/vue3-plotly-ts/blob/main/demo/src/App.vue).
