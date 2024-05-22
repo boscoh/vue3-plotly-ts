@@ -75,22 +75,22 @@ click on a data point. These are propagated to VuePlotly as
 event handlers which expect a callback. These are the expected
 callback arguments:
 
-* plotly_click `callback(: Plotly.PlotMouseEvent)`
-* plotly_hover `callback(: Plotly.PlotHoverEvent)`
-* plotly_unhover `callback(: Plotly.PlotMouseEvent)`
-* plotly_selecting `callback(: Plotly.PlotSelectionEvent)`
-* plotly_selected `callback(: Plotly.PlotSelectionEvent)`
-* plotly_restyle `callback(: Plotly.PlotRestyleEvent)`
-* plotly_relayout `callback(: Plotly.PlotRelayoutEvent)`
-* plotly_clickannotation `callback(: Plotly.ClickAnnotationEvent)`
-* plotly_legendclick `callback(: Plotly.LegendClickEvent)`
-* plotly_legenddoubleclick `callback(: Plotly.LegendClickEvent)`
-* plotly_sliderchange `callback(: Plotly.SliderChangeEvent)`
-* plotly_sliderend `callback(: Plotly.SliderEndEvent)`
-* plotly_sliderstart `callback(: Plotly.SliderStartEvent)`
-* plotly_sunburstclick `callback(: Plotly.SunburstClickEvent)`
+* plotly_click `callback(event: Plotly.PlotMouseEvent)`
+* plotly_hover `callback(event: Plotly.PlotHoverEvent)`
+* plotly_unhover `callback(event: Plotly.PlotMouseEvent)`
+* plotly_selecting `callback(event: Plotly.PlotSelectionEvent)`
+* plotly_selected `callback(event: Plotly.PlotSelectionEvent)`
+* plotly_restyle `callback(event: Plotly.PlotRestyleEvent)`
+* plotly_relayout `callback(event: Plotly.PlotRelayoutEvent)`
+* plotly_clickannotation `callback(event: Plotly.ClickAnnotationEvent)`
+* plotly_legendclick `callback(event: Plotly.LegendClickEvent)`
+* plotly_legenddoubleclick `callback(event: Plotly.LegendClickEvent)`
+* plotly_sliderchange `callback(event: Plotly.SliderChangeEvent)`
+* plotly_sliderend `callback(event: Plotly.SliderEndEvent)`
+* plotly_sliderstart `callback(event: Plotly.SliderStartEvent)`
+* plotly_sunburstclick `callback(event: Plotly.SunburstClickEvent)`
 * plotly_event `callback(: any)`
-* plotly_beforeplot `callback(: Plotly.BeforePlotEvent)`
+* plotly_beforeplot `callback(event: Plotly.BeforePlotEvent)`
 * plotly_afterexport `callback()`
 * plotly_afterplot `callback()`
 * plotly_animated `callback()`
