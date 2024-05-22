@@ -20,12 +20,29 @@ const emit = defineEmits([
     'plotly_selected',
     'plotly_restyle',
     'plotly_relayout',
+    'plotly_relayouting',
+    'plotly_clickannotation',
+    'plotly_animatingframe',
+    'plotly_legendclick',
+    'plotly_legenddoubleclick',
+    'plotly_sliderchange',
+    'plotly_sliderend',
+    'plotly_sliderstart',
+    'plotly_sunburstclick',
+    'plotly_event',
+    'plotly_beforeplot',
+    'plotly_afterexport',
+    'plotly_afterplot',
+    'plotly_animated',
+    'plotly_animationinterrupted',
     'plotly_autosize',
+    'plotly_beforeexport',
     'plotly_deselect',
     'plotly_doubleclick',
+    'plotly_framework',
     'plotly_redraw',
-    'plotly_animated',
-    'plotly_afterplot',
+    'plotly_transitioning',
+    'plotly_transitioninterrupted',
 ])
 
 const randomString = Math.random().toString(36).slice(2, 7)
@@ -55,54 +72,103 @@ const resizeObserver = new ResizeObserver(debounce(resize, 50))
 
 function setPlotlyEventHandlers() {
     const div = divRef.value as Plotly.PlotlyHTMLElement
-    div.on('plotly_click', (...args: any[]) => emit('plotly_click', ...args))
-    div.on('plotly_hover', (...args: any[]) => emit('plotly_hover', ...args))
-    div.on('plotly_unhover', (...args: any[]) =>
-        emit('plotly_unhover', ...args)
-    )
-    div.on('plotly_selecting', (...args: any[]) =>
-        emit('plotly_selecting', ...args)
-    )
-    div.on('plotly_selected', (...args: any[]) =>
-        emit('plotly_selected', ...args)
-    )
-    div.on('plotly_restyle', (...args: any[]) =>
-        emit('plotly_restyle', ...args)
-    )
-    div.on('plotly_relayout', (...args: any[]) =>
-        emit('plotly_relayout', ...args)
-    )
-    div.on('plotly_autosize', (...args: any[]) =>
-        emit('plotly_autosize', ...args)
-    )
-    div.on('plotly_deselect', (...args: any[]) =>
-        emit('plotly_deselect', ...args)
-    )
-    div.on('plotly_doubleclick', (...args: any[]) =>
-        emit('plotly_doubleclick', ...args)
-    )
-    div.on('plotly_redraw', (...args: any[]) => emit('plotly_redraw', ...args))
-    div.on('plotly_animated', (...args: any[]) =>
-        emit('plotly_animated', ...args)
-    )
-    div.on('plotly_afterplot', (...args: any[]) =>
-        emit('plotly_afterplot', ...args)
-    )
+    div.on('plotly_click', (e: Plotly.PlotMouseEvent) => {
+        emit('plotly_click', e)
+    })
+    div.on('plotly_hover', (e: Plotly.PlotHoverEvent) => {
+        emit('plotly_hover', e)
+    })
+    div.on('plotly_unhover', (e: Plotly.PlotMouseEvent) => {
+        emit('plotly_unhover', e)
+    })
+    div.on('plotly_selecting', (e: Plotly.PlotSelectionEvent) => {
+        emit('plotly_selecting', e)
+    })
+    div.on('plotly_selected', (e: Plotly.PlotSelectionEvent) => {
+        emit('plotly_selected', e)
+    })
+    div.on('plotly_restyle', (e: Plotly.PlotRestyleEvent) => {
+        emit('plotly_restyle', e)
+    })
+    div.on('plotly_relayout', (e: Plotly.PlotRelayoutEvent) => {
+        emit('plotly_relayout', e)
+    })
+    div.on('plotly_clickannotation', (e: Plotly.ClickAnnotationEvent) => {
+        emit('plotly_clickannotation', e)
+    })
+    div.on('plotly_legendclick', (e: Plotly.LegendClickEvent) => {
+        emit('plotly_legendclick', e)
+        return true
+    })
+    div.on('plotly_legenddoubleclick', (e: Plotly.LegendClickEvent) => {
+        emit('plotly_legenddoubleclick', e)
+        return true
+    })
+    div.on('plotly_sliderchange', (e: Plotly.SliderChangeEvent) => {
+        emit('plotly_sliderchange', e)
+    })
+    div.on('plotly_sliderend', (e: Plotly.SliderEndEvent) => {
+        emit('plotly_sliderend', e)
+    })
+    div.on('plotly_sliderstart', (e: Plotly.SliderStartEvent) => {
+        emit('plotly_sliderstart', e)
+    })
+    div.on('plotly_sunburstclick', (e: Plotly.SunburstClickEvent) => {
+        emit('plotly_sunburstclick', e)
+    })
+    div.on('plotly_event', (e: any) => {
+        emit('plotly_event', e)
+    })
+    div.on('plotly_beforeplot', (e: Plotly.BeforePlotEvent) => {
+        emit('plotly_beforeplot', e)
+        return true
+    })
+    div.on('plotly_afterexport', () => {
+        emit('plotly_afterexport')
+    })
+    div.on('plotly_afterplot', () => {
+        emit('plotly_afterplot')
+    })
+    div.on('plotly_animated', () => {
+        emit('plotly_animated')
+    })
+    div.on('plotly_animationinterrupted', () => {
+        emit('plotly_animationinterrupted')
+    })
+    div.on('plotly_autosize', () => {
+        emit('plotly_autosize')
+    })
+    div.on('plotly_beforeexport', () => {
+        emit('plotly_beforeexport')
+    })
+    div.on('plotly_deselect', () => {
+        emit('plotly_deselect')
+    })
+    div.on('plotly_doubleclick', () => {
+        emit('plotly_doubleclick')
+    })
+    div.on('plotly_framework', () => {
+        emit('plotly_framework')
+    })
+    div.on('plotly_redraw', () => {
+        emit('plotly_redraw')
+    })
+    div.on('plotly_transitioning', () => {
+        emit('plotly_transitioning')
+    })
+    div.on('plotly_transitioninterrupted', () => {
+        emit('plotly_transitioninterrupted')
+    })
 }
 
 watchEffect(async () => {
     const data = props.data ? props.data : []
+    const div = divRef.value as Plotly.Root
     if (isCreated) {
-        const div = divRef.value as Plotly.Root
         Plotly.react(div, data, props.layout, props.config)
-    } else if (divRef.value) {
-        const div = await Plotly.newPlot(
-            divRef.value as Plotly.Root,
-            data,
-            props.layout,
-            props.config
-        )
-        resizeObserver.observe(div)
+    } else if (div) {
+        await Plotly.newPlot(div, data, props.layout, props.config)
+        resizeObserver.observe(div as Plotly.PlotlyHTMLElement)
         setPlotlyEventHandlers()
         isCreated = true
     }
