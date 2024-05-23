@@ -113,7 +113,7 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
             >
         </div>
 
-        <code class="card">import VuePlotly from 'vue3-plotly-ts</code>
+        <code class="card">import VuePlotly from 'vue3-plotly-ts'</code>
 
         <code><pre class="card">{{ codeString }}</pre></code>
 
