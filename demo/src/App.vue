@@ -21,8 +21,7 @@ const layout = ref<Partial<Plotly.Layout>>({
 const dataString = ref(convertDataToString(data.value as Plotly.PlotData[]))
 const clickString = ref('onPlotlyClick(event) ->')
 
-const codeString =
-`<VuePlotly
+const codeString = `<VuePlotly
   :data="data"
   ref="plot"
   @plotly_click="onPlotlyClick"
@@ -99,51 +98,44 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
         point.y
     )}`
 }
-
 </script>
 
 <template>
-<div class="main">
-    <div class="narrow">
-        <h1>demo: vue3-plotly-ts</h1>
-
-        <div>
-            github:
-            <a href="https://github.com/boscoh/vue3-plotly-ts/"
-                >boscoh/vue3-plotly-ts</a
-            >
+    <div class="main">
+        <div class="narrow">
+            <h1>demo: vue3-plotly-ts</h1>
+            <div>
+                github:
+                <a href="https://github.com/boscoh/vue3-plotly-ts/"
+                    >boscoh/vue3-plotly-ts</a
+                >
+            </div>
+            <code class="card">import VuePlotly from 'vue3-plotly-ts'</code>
+            <code class="card">
+                <pre>{{ codeString }}</pre>
+            </code>
         </div>
 
-        <code class="card">import VuePlotly from 'vue3-plotly-ts'</code>
-
-        <code><pre class="card">{{ codeString }}</pre></code>
-
-    </div>
-
-    <div class="wide">
-        <VuePlotly
-            ref="plot"
-            @plotly_click="onPlotlyClick"
-            :data="data"
-            :layout="layout"
-        />
-    </div>
-
-    <div class="narrow">
-        <div style="margin: 10px 0">
-            <button @click="onRandomize">randomize</button>
-            &nbsp;<button @click="onAnimate">animate</button>
-            &nbsp; [click on points]
+        <div class="wide">
+            <VuePlotly
+                ref="plot"
+                @plotly_click="onPlotlyClick"
+                :data="data"
+                :layout="layout"
+            />
         </div>
 
-
-        <code class="card">{{ dataString }}</code>
-
-        <code class="card">{{ idString }}</code>
-
-        <code class="card">{{ clickString }}</code>
+        <div class="narrow">
+            <div style="margin: 10px 0">
+                <button @click="onRandomize">randomize</button>
+                &nbsp;<button @click="onAnimate">animate</button>
+                &nbsp; [click on points]
+            </div>
+            <code class="card">{{ dataString }}</code>
+            <code class="card">{{ idString }}</code>
+            <code class="card">{{ clickString }}</code>
+        </div>
     </div>
-</div>
 </template>
 
 <style scoped>
