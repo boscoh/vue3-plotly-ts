@@ -103,6 +103,7 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
 </script>
 
 <template>
+<div class="main">
     <div class="narrow">
         <h1>demo: vue3-plotly-ts</h1>
 
@@ -142,6 +143,7 @@ function onPlotlyClick(data: Plotly.PlotMouseEvent) {
 
         <code class="card">{{ clickString }}</code>
     </div>
+</div>
 </template>
 
 <style scoped>
@@ -155,13 +157,18 @@ pre {
     padding: 0.3rem 1rem;
     border: 1px solid #ddd;
 }
+.main {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .narrow {
     width: 80%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
 }
-
 .wide {
     width: 80%;
 }
