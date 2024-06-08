@@ -58,6 +58,10 @@ async function onRandomize() {
     const currLayout = _.cloneDeep(layout.value)
     currLayout['yaxis'] = { range: [0, newMaxY * 1.1] }
     layout.value = currLayout
+
+    // Have to reset plotly handlers after a layout animate.
+    // Debug at your own leisure for your cases
+    plot.value?.setPlotlyEventHandlers()
 }
 
 async function onAnimate() {
