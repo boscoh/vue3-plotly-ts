@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 import Plotly from 'plotly.js-dist-min'
+import events from './events'
 
 const props = defineProps<{
     data?: Plotly.Data[]
@@ -12,38 +13,7 @@ const props = defineProps<{
     config?: Partial<Plotly.Config>
 }>()
 
-const emit = defineEmits([
-    'plotly_click',
-    'plotly_hover',
-    'plotly_unhover',
-    'plotly_selecting',
-    'plotly_selected',
-    'plotly_restyle',
-    'plotly_relayout',
-    'plotly_relayouting',
-    'plotly_clickannotation',
-    'plotly_animatingframe',
-    'plotly_legendclick',
-    'plotly_legenddoubleclick',
-    'plotly_sliderchange',
-    'plotly_sliderend',
-    'plotly_sliderstart',
-    'plotly_sunburstclick',
-    'plotly_event',
-    'plotly_beforeplot',
-    'plotly_afterexport',
-    'plotly_afterplot',
-    'plotly_animated',
-    'plotly_animationinterrupted',
-    'plotly_autosize',
-    'plotly_beforeexport',
-    'plotly_deselect',
-    'plotly_doubleclick',
-    'plotly_framework',
-    'plotly_redraw',
-    'plotly_transitioning',
-    'plotly_transitioninterrupted',
-])
+const emit = defineEmits(events)
 
 const randomString = Math.random().toString(36).slice(2, 7)
 const plotlyId = ref<string>(`plotly-${randomString}`)
@@ -72,6 +42,11 @@ const resizeObserver = new ResizeObserver(debounce(resize, 50))
 
 function setPlotlyEventHandlers() {
     const div = divRef.value as Plotly.PlotlyHTMLElement
+
+    for (let event of events) {
+        div.removeAllListeners(event)
+    }
+
     div.on('plotly_click', (e: Plotly.PlotMouseEvent) => {
         emit('plotly_click', e)
     })
